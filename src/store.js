@@ -16,6 +16,26 @@ export default new Vuex.Store({
     },
     changeLength(state,length){
       state.length=length
+    },
+    generate(state){
+      let allSymbols=[]
+      state.password=''
+      let randNumb=0
+      let randSymb
+      if(state.numbers.isActive)
+        state.numbers.value.forEach(i=>allSymbols.push(i))
+      if(state.letters.isActive)
+        state.letters.value.forEach(i=>allSymbols.push(i))
+      if(state.symbols.isActive)
+        state.symbols.value.forEach(i=>allSymbols.push(i))
+      for (let index = 0; index < state.length; index++) {
+        randNumb=Math.trunc((Math.random()*67))%allSymbols.length//генерация случайного индекса
+        randSymb=allSymbols[randNumb]//выбор символа на основе случайного индекса
+        if(state.letters.isUpper&&state.letters.value.includes(randSymb)&&Boolean(Math.trunc(Math.random()*10%2))){
+          randSymb=randSymb.toUpperCase()
+        }
+        state.password+=randSymb
+      }
     }
   },
   state: {
@@ -32,6 +52,7 @@ export default new Vuex.Store({
       isActive:false,
       value:['`','~','!','#','№','$','%','^','&','?','*','-','_','(',')','=','+','/','\\','.',"'",'"',';',':','[',']','{','}','<','>']
     },
-    length: 0
+    length: 8,
+    password: 'password'
   }
 })
