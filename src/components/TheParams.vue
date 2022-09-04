@@ -22,8 +22,8 @@
       </span>
     </CheckboxItem>
     <div class="pt-2 flex flex-row space-x-3">
-      <span>lenght</span>
-      <input type="text" placeholder=" lenght" class="outline-none border-2 border-gray-900 w-24" v-model="lengthVal">
+      <span>length</span>
+      <input type="text" placeholder=" length" class="outline-none border-2 border-gray-900 w-24" v-model="lengthVal">
     </div>
   </div>
 </template>
