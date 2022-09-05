@@ -1,40 +1,36 @@
 <template>
-  <div class="flex flex-col space-y-4 items-center">
-    <CheckboxItem type="numbers"> <!-- ЦИФРЫ -->
-      <input type="checkbox" class="h-5 w-5 ml-3" @change="chcngeNumbers">
-      <span class="border-2 border-gray-600 rounded-lg bg-gray-300">
-        {{numb}}
-      </span>
-    </CheckboxItem>
-    <CheckboxItem type="letters"> <!-- БУКВЫ -->
-      <input type="checkbox" class="h-5 w-5 ml-3" @change="chcngeLetters">
-      <span class="border-2 border-gray-600 rounded-lg bg-gray-300">
-        {{letters}}
-      </span>
-    </CheckboxItem>
-    <CheckboxItem type="upper/lower case"> <!-- РЕГИСТР -->
-      <input type="checkbox" class="h-5 w-5 ml-3" @change="chcngeLettersCase">
-    </CheckboxItem>
-    <CheckboxItem type="symbols"> <!-- СИМВОЛЫ -->
-      <input type="checkbox" class="h-5 w-5 ml-3" @change="chcngeSymbols">
-      <span class="border-2 border-gray-600 rounded-lg bg-gray-300">
-        {{symb}}
-      </span>
-    </CheckboxItem>
-    <div class="pt-2 flex flex-row space-x-3">
-      <span>length</span>
-      <input type="text" placeholder=" length" class="outline-none border-2 border-gray-900 w-24" v-model="lengthVal">
+  <div class="flex flex-row space-x-6 items-center justify-center w-full">
+    <div class="flex flex-row items-center space-x-3 relative group w-full"> <!-- ЦИФРЫ -->
+      <CheckboxButton type="numbers" :active="this.$store.state.numbers.isActive" @click="chcngeNumbers"/>
+      <CharsExample>{{numb}}</CharsExample>
+    </div>
+    <div class="flex flex-row items-center space-x-3 relative group w-full" relative> <!-- БУКВЫ -->
+      <CheckboxButton type="letters" :active="this.$store.state.letters.isActive" @click="chcngeLetters"/>
+      <CharsExample>{{letters}}</CharsExample>
+    </div>
+    <div class="flex flex-row items-center space-x-3 relative group w-full"> <!-- СИМВОЛЫ -->
+      <CheckboxButton type="symbols" :active="this.$store.state.symbols.isActive" @click="chcngeSymbols"/>
+      <CharsExample>{{symb}}</CharsExample>
+    </div>
+    <div class="flex flex-row items-center space-x-3 relative group w-full"> <!-- РЕГИСТР -->
+      <CheckboxButton type="case" :active="this.$store.state.letters.isUpper" @click="chcngeLettersCase"/>
+    </div>
+    <div class="flex flex-col">
+      <span class="m-auto text-xl">length</span>
+      <input type="text" placeholder=" length" class="outline-none border-2 border-gray-900 w-32 text-xl" v-model="lengthVal">
     </div>
   </div>
 </template>
 
 <script>
-import CheckboxItem from './CheckboxItem.vue'
+import CheckboxButton from './CheckboxButton.vue'
+import CharsExample from './CharsExample.vue'
 import {mapMutations} from 'vuex'
 
 export default {
   components:{
-    CheckboxItem
+    CheckboxButton,
+    CharsExample
   },
   methods:{
     ...mapMutations(['chcngeNumbers', 'chcngeLetters', 'chcngeLettersCase', 'chcngeSymbols'])

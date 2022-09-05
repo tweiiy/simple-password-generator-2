@@ -28,14 +28,24 @@ export default new Vuex.Store({
         state.letters.value.forEach(i=>allSymbols.push(i))
       if(state.symbols.isActive)
         state.symbols.value.forEach(i=>allSymbols.push(i))
-      for (let index = 0; index < state.length; index++) {
-        randNumb=Math.trunc((Math.random()*67))%allSymbols.length//генерация случайного индекса
-        randSymb=allSymbols[randNumb]//выбор символа на основе случайного индекса
-        if(state.letters.isUpper&&state.letters.value.includes(randSymb)&&Boolean(Math.trunc(Math.random()*10%2))){
-          randSymb=randSymb.toUpperCase()
+      if(allSymbols.length>0){
+        for (let index = 0; index < state.length; index++) {
+          randNumb=Math.trunc((Math.random()*67))%allSymbols.length//генерация случайного индекса
+          randSymb=allSymbols[randNumb]//выбор символа на основе случайного индекса
+          if(state.letters.isUpper&&state.letters.value.includes(randSymb)&&Boolean(Math.trunc(Math.random()*10%2))){
+            randSymb=randSymb.toUpperCase()
+          }
+          state.password+=randSymb
         }
-        state.password+=randSymb
       }
+      else
+        state.password='password'
+    },
+    copy(state){
+      const password = state.password
+      navigator.clipboard.writeText(password).then(() => {
+          console.log(password+' copied to clipboard');
+      })
     }
   },
   state: {
